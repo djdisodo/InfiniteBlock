@@ -291,9 +291,9 @@ class InfiniteBlock extends PluginBase implements Listener {
 		$command->setUsage ( $usage );
 		$commandMap->register ( $fallback, $command );
 	}
-	public function onCommand(CommandSender $player, Command $command, $label, Array $args) {
+	public function onCommand(CommandSender $player, Command $command, string $label, Array $args) : bool{
 		if (! strtolower ( $command->getName () ) == $this->get ( "infinite" ))
-			return;
+			return true;
 		
 		if (! isset ( $args [0] )) {
 			$this->message ( $player, $this->get ( "help-page-add" ) );
@@ -358,16 +358,16 @@ class InfiniteBlock extends PluginBase implements Listener {
 				if (! isset ( $args [1] ) or ! is_numeric ( $args [1] )) {
 					$this->message ( $player, $this->get ( "mine-option-add-help" ) );
 					$this->message ( $player, $this->get ( "is-must-numeric" ) );
-					return;
+					return true;
 				}
 				if (! isset ( $args [2] )) {
 					$this->message ( $player, $this->get ( "mine-option-add-help" ) );
-					return;
+					return true;
 				}
 				$probability = explode ( "/", $args [2] );
 				if (! isset ( $probability [1] )) {
 					$this->message ( $player, $this->get ( "mine-option-add-help" ) );
-					return;
+					return true;
 				}
 				$this->mineSettings ["mine-probability"] [( int ) $args [1]] = ( int ) round ( $probability [1] / $probability [0] );
 				$this->mineSort ();
@@ -377,7 +377,7 @@ class InfiniteBlock extends PluginBase implements Listener {
 				if (! isset ( $args [1] ) or ! is_numeric ( $args [1] )) {
 					$this->message ( $player, $this->get ( "mine-option-del-help" ) );
 					$this->message ( $player, $this->get ( "is-must-numeric" ) );
-					return;
+					return true;
 				}
 				if (isset ( $this->mineSettings ["mine-probability"] [( int ) $args [1]] ))
 					unset ( $this->mineSettings ["mine-probability"] [( int ) $args [1]] );
