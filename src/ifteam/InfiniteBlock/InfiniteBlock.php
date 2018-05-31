@@ -186,7 +186,7 @@ class InfiniteBlock extends PluginBase implements Listener {
 				foreach ( $drops as $drop ) {
 					if ($event->getPlayer () instanceof InventoryHolder) {
 						if ($event->getPlayer ()->getInventory () instanceof BaseInventory) {
-							if ($drop [2] > 0) $event->getPlayer ()->getInventory ()->addItem ( Item::get (...$drop));
+							if ($drop->getCount() > 0) $event->getPlayer ()->getInventory ()->addItem ( Item::get (...$drop));
 						}
 					}
 				}
