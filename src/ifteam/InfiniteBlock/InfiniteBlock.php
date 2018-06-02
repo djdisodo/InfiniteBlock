@@ -73,7 +73,7 @@ class InfiniteBlock extends PluginBase implements Listener {
 				$rand = rand ( 1, $this->sortedSettings [$item] );
 			}
 			if ($rand == 1) {
-				$item = explode(':',$item);
+				$item = explode(':',$item . ':0');
 				return Block::get((int)$item[0],(int)$item[1]);
 			}
 		}
