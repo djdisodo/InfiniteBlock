@@ -64,7 +64,7 @@ class InfiniteBlock extends PluginBase implements Listener {
 		ksort ( $sortedIndex ); // 확률이 낮은 순서부터 오름차 정렬
 		$this->sortedSettings = $sortedIndex;
 	}
-	public function randomMine($vipmode = false) {
+	public function randomMine($vipmode = false) : Block{
 		$index = array_keys ( $this->sortedSettings );
 		foreach ( $index as $item ) {
 			if ($vipmode) {
@@ -73,10 +73,11 @@ class InfiniteBlock extends PluginBase implements Listener {
 				$rand = rand ( 1, $this->sortedSettings [$item] );
 			}
 			if ($rand == 1) {
-				return $item;
+				$item = explode(':',$item);
+				return Block::get((int)$item[0],(int)$item[1]);
 			}
 		}
-		return 1;
+		return Block::get(1);
 	}
 	public function onDisable() {
 		$this->config->setAll ( $this->config_Data );
@@ -191,9 +192,9 @@ class InfiniteBlock extends PluginBase implements Listener {
 					}
 				}
 				if ($event->getPlayer ()->hasPermission ( "infinite.VIP" )) {
-					$this->breakQueue ["{$block->x}:{$block->y}:{$block->z}"] = Block::get ( $this->randomMine ( true ) );
+					$this->breakQueue ["{$block->x}:{$block->y}:{$block->z}"] = $this->randomMine ( true );
 				} else {
-					$this->breakQueue ["{$block->x}:{$block->y}:{$block->z}"] = Block::get ( $this->randomMine () );
+					$this->breakQueue ["{$block->x}:{$block->y}:{$block->z}"] = $this->randomMine ();
 				}
 				$this->itemQueue ["{$x}:{$y}:{$z}"] = $drops;
 			} else {
