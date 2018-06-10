@@ -356,7 +356,7 @@ class InfiniteBlock extends PluginBase implements Listener {
 				$this->message ( $player, $this->get ( "infinite-cleared" ) );
 				break;
 			case $this->get ( "infinite-mine-option-add" ) :
-				if (! isset ( $args [1] ) or ! is_numeric ( $args [1] )) {
+				if (! isset ( $args [1] ) or ! is_numeric ( explode(':',$args [1] . ':0')[0] ) or !is_numeric(explode(':',$args [1] . ':0')[1]) {
 					$this->message ( $player, $this->get ( "mine-option-add-help" ) );
 					$this->message ( $player, $this->get ( "is-must-numeric" ) );
 					return true;
@@ -370,7 +370,7 @@ class InfiniteBlock extends PluginBase implements Listener {
 					$this->message ( $player, $this->get ( "mine-option-add-help" ) );
 					return true;
 				}
-				$this->mineSettings ["mine-probability"] [( int ) $args [1]] = ( int ) round ( $probability [1] / $probability [0] );
+				$this->mineSettings ["mine-probability"] [$args [1]] = ( int ) round ( $probability [1] / $probability [0] );
 				$this->mineSort ();
 				$this->message ( $player, $this->get ( "mine-option-add-complete" ) );
 				break;
