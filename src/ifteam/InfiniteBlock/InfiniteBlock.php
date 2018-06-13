@@ -356,7 +356,7 @@ class InfiniteBlock extends PluginBase implements Listener {
 				$this->message ( $player, $this->get ( "infinite-cleared" ) );
 				break;
 			case $this->get ( "infinite-mine-option-add" ) :
-				if (! isset ( $args [1] ) or ! is_numeric ( explode(':',$args [1] . ':0')[0] ) or !is_numeric(explode(':',$args [1] . ':0')[1]) {
+				if (! isset ( $args [1] ) or ! is_numeric ( explode(':',$args [1] . ':0')[0] ) or !is_numeric(explode(':',$args [1] . ':0')[1])) {
 					$this->message ( $player, $this->get ( "mine-option-add-help" ) );
 					$this->message ( $player, $this->get ( "is-must-numeric" ) );
 					return true;
